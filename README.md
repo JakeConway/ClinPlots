@@ -7,4 +7,4 @@ There is a need to rapidly and effectively summarize multivariate risk informati
 ![Figure 2](https://cloud.githubusercontent.com/assets/12614369/21381729/0a219992-c72b-11e6-8c65-8d51112e35eb.png)
 
 ### Links to gists containing data
-https://gist.github.com/JakeConway/7e27850ccfd88927b0f6edc89e5a8bcd
+- https://gist.github.com/JakeConway/7e27850ccfd88927b0f6edc89e5a8bcd
