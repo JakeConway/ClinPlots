@@ -3,4 +3,5 @@ DisorderCohortRiskPlot <- function(data){
   line_data <- flattenToX(data)
   plot <- ggplot()
   plot <- addLines(plot, line_data)
+  plot
 }
