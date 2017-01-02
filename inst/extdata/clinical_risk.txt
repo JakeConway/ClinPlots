@@ -1,0 +1,9 @@
+min	max	avg	disorder	n
+28	65	28	Obesity	13
+53	62	53	Coronary artery disease	10
+30	60	30	Type 2 diabetes	42
+15	22	15	Depression	4
+17	21	17	Prostate cancer	18
+16	20	17	Asthma	2
+20	21	20	Hypertension	2
+2	12	11	Alzheimer's disease	25
