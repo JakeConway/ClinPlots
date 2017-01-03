@@ -5,10 +5,26 @@ DisorderCohortRiskPlot <- function(data){
   plot <- ggplot()
   plot <- addLines(plot, line_data)
   plot <- addPoints(plot, data)
-  print(plot)
 
   text_plot <- ggplot()
-  text_plot <- addCountText(text_plot, data)
+  text_plot <- addText(text_plot, data, 'disorder', 'n', 2.5)
   text_plot <- addHeaderLine(text_plot, data)
-  print(text_plot)
+
+  plot_list <- list(plot, text_plot)
+  grobs <- alignHeights(plot_list)
+
+  plot <- grobs[[1]]
+  text_plot <- grobs[[2]]
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(1, 100)))
+  vp = vplayout(1, 1:92)
+  pushViewport(vp)
+  grid.draw(arrangeGrob(plot))
+  popViewport()
+  vp = vplayout(1, 93:100)
+  pushViewport(vp)
+  grid.draw(arrangeGrob(text_plot))
+  popViewport()
+
 }
