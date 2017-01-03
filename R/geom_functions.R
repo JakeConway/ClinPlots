@@ -5,8 +5,8 @@ addLines <- function(plot, line_data) {
 }
 
 addPoints <- function(plot, data) {
-  plot <- (plot + geom_point(data = data, aes(x = avg, y = disorder))
-           + scale_y_discrete(position = 'right'))
+  plot <- (plot + geom_point(data = data, aes(x = avg, y = disorder, shape=17))
+           + scale_y_discrete(position = 'right') + scale_shape_identity())
   return(plot)
 }
 
