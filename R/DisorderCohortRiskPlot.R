@@ -1,4 +1,4 @@
-DisorderCohortRiskPlot <- function(data){
+disorderCohortRiskPlot <- function(data){
   data$disorder <- as.character(data$disorder)
   data <- data[order(data$disorder), ]
   line_data <- flattenToX(data)
