@@ -6,6 +6,13 @@ flattenToX <- function(data) {
   return(data.frame(x = x_positions, y = y_positions))
 }
 
+toPercentages <- function(data) {
+  data$avg <- as.numeric(data$avg)/100
+  data$min <- as.numeric(data$min)/100
+  data$max <- as.numeric(data$max)/100
+  return(data)
+}
+
 colsToCharacter <- function(data) {
   data[] <- lapply(data, as.character)
   return(data)

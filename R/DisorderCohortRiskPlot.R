@@ -1,5 +1,6 @@
 disorderCohortRiskPlot <- function(data){
   data$disorder <- as.character(data$disorder)
+  data <- toPercentages(data)
   data <- data[order(data$disorder), ]
   line_data <- flattenToX(data)
   plot <- ggplot()
