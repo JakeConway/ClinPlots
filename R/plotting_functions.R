@@ -26,12 +26,17 @@ alignHeights <- function(plot_list){
 initGgplots <- function(data, columns) {
   columns <- as.list(columns)
   data_list <- lapply(columns, function(x){
-    col_data <- as.data.frame(unlist(data[x]))
+    data_vec <- unlist(data[x])
+    data_vec[which(is.na(data_vec))] <- " "
+    col_data <- as.data.frame(data_vec)
     names(col_data) <- x
     col_data$y <- nrow(col_data):1
+    extend <- TRUE
     index <- which(columns == x)
-    col_data <- na.omit(col_data)
-    return(list(plot = ggplot_gtable(ggplot_build(addText(ggplot(), col_data, 'y', x, 2.5))),
+    if(index == ncol(data)) extend <- FALSE
+    plot <- addText(ggplot(), col_data, 'y', x, 2.5)
+    plot <- addHeaderLine(plot, col_data, extend)
+    return(list(plot = ggplot_gtable(ggplot_build(plot)),
            index = index))
   })
   return(data_list)

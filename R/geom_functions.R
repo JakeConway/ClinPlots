@@ -46,9 +46,7 @@ addHeaderLine <- function(plot, data, extend) {
   x_limits <- xScaleLimits(plot)
   min <- 0
   max <- x_limits[2]*2
-  if(!extend){
-    max <- Inf
-  }
+  if(!extend) max <- Inf
   plot <- plot + annotation_custom(segmentsGrob(), xmin = min, xmax = max, ymin = 8.6, ymax = 8.6)
   return(plot)
 }
