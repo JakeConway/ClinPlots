@@ -25,7 +25,7 @@ addPoints <- function(plot, data) {
 
 addText <- function(plot, data, y, title, size) {
   data$x <- 1
-  plot <-(plot + geom_text(data = data, aes_string(x = "x", y = y, label = "n"), size = size)
+  plot <-(plot + geom_text(data = data, aes_string(x = "x", y = y, label = title), size = size)
       + ggtitle(title)
       + theme(
         panel.background = element_rect(fill = 'white', colour = 'white'),

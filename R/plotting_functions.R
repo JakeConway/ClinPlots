@@ -22,3 +22,28 @@ alignHeights <- function(plot_list){
   })
   return(grobs)
 }
+
+initGgplots <- function(data, columns) {
+  columns <- as.list(columns)
+  data_list <- lapply(columns, function(x){
+    col_data <- as.data.frame(unlist(data[x]))
+    names(col_data) <- x
+    col_data$y <- nrow(col_data):1
+    index <- which(columns == x)
+    col_data <- na.omit(col_data)
+    return(list(plot = ggplot_gtable(ggplot_build(addText(ggplot(), col_data, 'y', x, 2.5))),
+           index = index))
+  })
+  return(data_list)
+}
+
+drawGenomicRiskSummary <- function(data_list) {
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(1, 7)))
+  invisible(lapply(data_list, function(x) {
+    vp = vplayout(1, x$index)
+    pushViewport(vp)
+    grid.draw(arrangeGrob(x$plot))
+    popViewport()
+  }))
+}
