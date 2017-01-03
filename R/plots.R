@@ -5,10 +5,11 @@ DisorderCohortRiskPlot <- function(data){
   plot <- ggplot()
   plot <- addLines(plot, line_data)
   plot <- addPoints(plot, data)
+  plot <- addHeaderLine(plot, data, TRUE)
 
   text_plot <- ggplot()
   text_plot <- addText(text_plot, data, 'disorder', 'n', 2.5)
-  text_plot <- addHeaderLine(text_plot, data)
+  text_plot <- addHeaderLine(text_plot, data, FALSE)
 
   plot_list <- list(plot, text_plot)
   grobs <- alignHeights(plot_list)
