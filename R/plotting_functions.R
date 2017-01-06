@@ -49,6 +49,7 @@ initGgplots <- function(data, columns) {
     if(index == ncol(data)) extend <- FALSE
     plot <- addText(ggplot(), col_data, 'y', x, 2.5)
     plot <- addHeaderLine(plot, extend, FALSE)
+    plot <- removeMargin(plot, 0.5, 0, 0.5, 0)
     return(list(plot = ggplot_gtable(ggplot_build(plot)),
            index = index, updatable = TRUE))
   })
@@ -65,6 +66,7 @@ generateGenomicLinePlot <- function(line_data) {
   plot <- addLines(plot, line_data)
   plot <- addHeaderLine(plot, TRUE, TRUE)
   plot <- addGenomicRiskSummaryTheme(plot)
+  plot <- removeMargin(plot, 0.5, 0, 0.5, 0)
   return(list(plot = ggplot_gtable(ggplot_build(plot)),
               index = 4, updatable = FALSE))
 }

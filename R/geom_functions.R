@@ -62,6 +62,11 @@ addGenomicRiskSummaryTheme <- function(plot) {
   )
 }
 
+removeMargin <- function(plot, top, right, bottom, left) {
+  plot <- plot + theme(plot.margin = unit(c(top, right, bottom, left), "cm"))
+  return(plot)
+}
+
 addText <- function(plot, data, y, title, size) {
   data$x <- 1
   plot <-(plot + geom_text(data = data, aes_string(x = "x", y = y, label = title), size = size)
@@ -82,7 +87,7 @@ addText <- function(plot, data, y, title, size) {
 addHeaderLine <- function(plot, extend, x_is_y) {
   x_limits <- xScaleLimits(plot)
   min <- 0
-  max <- x_limits[2]*100000
+  max <- x_limits[2]*2
   if(!extend || is.null(x_limits)) max <- Inf
   plot <- plot + annotation_custom(segmentsGrob(), xmin = min, xmax = max, ymin = 8.6, ymax = 8.6)
   return(plot)
