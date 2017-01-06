@@ -1,37 +1,11 @@
 disorderCohortRiskPlot <- function(data){
-  colnames(data) <- tolower(colnames(data))
-  data$disorder <- as.character(data$disorder)
-  data <- toPercentages(data)
-  data <- data[order(data$disorder), ]
-  data <- addShape(data, 17)
-  data <- addColor(data, 'black')
+  data <- formatDisorderData(data)
   line_data <- disorderFlattenToX(data)
-  plot <- ggplot()
-  plot <- addLines(plot, line_data)
-  plot <- addPoints(plot, data, 'Disorder', 'avg', 'disorder', 'Clinical risk (%)', FALSE)
-  plot <- addDisorderCohortRiskTheme(plot)
-
-  plot <- addHeaderLine(plot, TRUE, FALSE)
-
-  text_plot <- ggplot()
-  text_plot <- addText(text_plot, data, 'disorder', 'n', 2.5)
-  text_plot <- addHeaderLine(text_plot, FALSE, FALSE)
-
+  plot <- generateDisorderLinePlot(data, line_data)
+  text_plot <- generateDisorderTextPlot(data)
   plot_list <- list(plot, text_plot)
   grobs <- alignHeights(plot_list, 1)
-
   plot <- grobs[[1]]
   text_plot <- grobs[[2]]
-
-  grid.newpage()
-  pushViewport(viewport(layout = grid.layout(1, 100)))
-  vp = vplayout(1, 1:92)
-  pushViewport(vp)
-  grid.draw(arrangeGrob(plot))
-  popViewport()
-  vp = vplayout(1, 93:100)
-  pushViewport(vp)
-  grid.draw(arrangeGrob(text_plot))
-  popViewport()
-
+  drawDisorderCohortRiskPlot(plot, text_plot)
 }

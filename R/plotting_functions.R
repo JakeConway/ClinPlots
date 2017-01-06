@@ -99,3 +99,42 @@ drawGenomicRiskSummary <- function(data_list) {
     popViewport()
   }))
 }
+
+formatDisorderData <- function(data) {
+  colnames(data) <- tolower(colnames(data))
+  data$disorder <- as.character(data$disorder)
+  data <- toPercentages(data)
+  data <- data[order(data$disorder), ]
+  data <- addShape(data, 17)
+  data <- addColor(data, 'black')
+  return(data)
+}
+
+generateDisorderLinePlot <- function(data, line_data) {
+  plot <- ggplot()
+  plot <- addLines(plot, line_data)
+  plot <- addPoints(plot, data, 'Disorder', 'avg', 'disorder', 'Clinical risk (%)', FALSE)
+  plot <- addDisorderCohortRiskTheme(plot)
+  plot <- addHeaderLine(plot, TRUE, FALSE)
+  return(plot)
+}
+
+generateDisorderTextPlot <- function(data) {
+  text_plot <- ggplot()
+  text_plot <- addText(text_plot, data, 'disorder', 'n', 2.5)
+  text_plot <- addHeaderLine(text_plot, FALSE, FALSE)
+  return(text_plot)
+}
+
+drawDisorderCohortRiskPlot <- function(plot, text_plot) {
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(1, 100)))
+  vp = vplayout(1, 1:92)
+  pushViewport(vp)
+  grid.draw(arrangeGrob(plot))
+  popViewport()
+  vp = vplayout(1, 93:100)
+  pushViewport(vp)
+  grid.draw(arrangeGrob(text_plot))
+  popViewport()
+}
