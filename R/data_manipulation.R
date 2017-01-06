@@ -1,9 +1,9 @@
-flattenToX <- function(data) {
+disorderFlattenToX <- function(data) {
   mins <- data$min
   maxs <- data$max
   x_positions <- c(mins, maxs)
   y_positions <- rep(data$disorder, 2)
-  return(data.frame(x = x_positions, y = y_positions))
+  return(data.frame(x = x_positions, y = y_positions, group = y_positions))
 }
 
 toPercentages <- function(data) {
@@ -29,4 +29,43 @@ adjustGeneLabels <- function(data, columns) {
   } else {
     return(data)
   }
+}
+
+genomicFlattenToX <- function(data, column) {
+  y_positions <- as.numeric(unname(unlist(data[column])))/100
+  x_data <- length(y_positions):1
+  group <- rep(1, nrow(data))
+  studies <- data$studies
+
+  return(data.frame(x = x_data, y = y_positions, group = group, studies = studies))
+}
+
+orderByY <- function(line_data) {
+  line_data <- line_data[order(line_data$y), ]
+  return(line_data)
+}
+
+addShape <- function(data, shape) {
+  data$shape <- shape
+  return(data)
+}
+
+editShape <- function(data, shape, index) {
+  data$shape[index] <- shape
+  return(data)
+}
+
+addColor <-function(data, colors) {
+  data$color <- colors
+  return(data)
+}
+
+genomicRiskColorPicker <- function(data) {
+  studies <- unique(data$studies)
+  studies <- studies[!is.na(studies)]
+  n_studies <- length(studies)
+  colors <- grey.colors(n_studies, start = 0.15, end = 0.75, gamma = 2.2, alpha = NULL)
+  colors <- rev(colors)
+  colors <- c('blue', colors[data$studies[2:nrow(data)]])
+  return(colors)
 }
