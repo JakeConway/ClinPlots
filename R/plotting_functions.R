@@ -36,7 +36,7 @@ alignGenomicHeights <- function(grobs, model_index) {
   return(grobs)
 }
 
-initGgplots <- function(data, columns) {
+initGgplots <- function(data, columns, n_rows) {
   columns <- as.list(columns)
   data_list <- lapply(columns, function(x){
     data_vec <- unlist(data[x])
@@ -48,7 +48,7 @@ initGgplots <- function(data, columns) {
     index <- which(columns == x)
     if(index == ncol(data)) extend <- FALSE
     plot <- addText(ggplot(), col_data, 'y', x, 2.5)
-    plot <- addHeaderLine(plot, extend, FALSE)
+    plot <- addHeaderLine(plot, n_rows, extend, FALSE)
     plot <- removeMargin(plot, 0.5, 0, 0.5, 0)
     return(list(plot = ggplot_gtable(ggplot_build(plot)),
            index = index, updatable = TRUE))
@@ -65,7 +65,7 @@ generateGenomicLinePlot <- function(line_data) {
   plot <- ggplot()
   plot <- addPoints(plot, line_data, '   ', 'x', 'y','Risk (%)', TRUE)
   plot <- addLines(plot, line_data)
-  plot <- addHeaderLine(plot, TRUE, TRUE)
+  plot <- addHeaderLine(plot, nrow(line_data), TRUE, TRUE)
   plot <- addGenomicRiskSummaryTheme(plot)
   plot <- removeMargin(plot, 0.5, 0, 0.5, 0)
   return(list(plot = ggplot_gtable(ggplot_build(plot)),
@@ -112,19 +112,20 @@ formatDisorderData <- function(data) {
 }
 
 generateDisorderLinePlot <- function(data, line_data) {
+  n_rows <- nrow(data)
   plot <- ggplot()
   plot <- addLines(plot, line_data)
   plot <- addPoints(plot, data, '   ', 'avg', 'disorder', 'Clinical risk (%)', FALSE)
   plot <- addDisorderCohortRiskTheme(plot)
-  plot <- addHeaderLine(plot, TRUE, FALSE)
-  plot <- addDisorderTitle(plot)
+  plot <- addHeaderLine(plot, n_rows, TRUE, FALSE)
+  plot <- addDisorderTitle(plot, n_rows)
   return(plot)
 }
 
 generateDisorderTextPlot <- function(data) {
   text_plot <- ggplot()
   text_plot <- addText(text_plot, data, 'disorder', 'n', 2.5)
-  text_plot <- addHeaderLine(text_plot, FALSE, FALSE)
+  text_plot <- addHeaderLine(text_plot, nrow(data), FALSE, FALSE)
   return(text_plot)
 }
 

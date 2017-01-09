@@ -85,19 +85,23 @@ addText <- function(plot, data, y, title, size) {
   return(plot)
 }
 
-addHeaderLine <- function(plot, extend, x_is_y) {
+addHeaderLine <- function(plot, n_rows, extend, x_is_y) {
   x_limits <- xScaleLimits(plot)
   min <- 0
   max <- x_limits[2]*2
   if(!extend || is.null(x_limits)) max <- Inf
-  plot <- plot + annotation_custom(segmentsGrob(), xmin = min, xmax = max, ymin = 8.6, ymax = 8.6)
+  y_position <- n_rows*1.075
+  plot <- plot + annotation_custom(segmentsGrob(), xmin = min, xmax = max,
+                                   ymin = y_position, ymax = y_position)
   return(plot)
 }
 
-addDisorderTitle <- function(plot) {
+addDisorderTitle <- function(plot, n_rows) {
   x_limits <- xScaleLimits(plot)
   max <- x_limits[2]*1.15
+  y_position <- n_rows*1.105
   plot <- plot + annotation_custom(textGrob(label = 'Disorder', gp = gpar(cex = 0.85)),
-                                   xmin = max, xmax = max, ymin = 8.75, ymax = 8.75)
+                                   xmin = max, xmax = max,
+                                   ymin = y_position, ymax = y_position)
   return(plot)
 }
