@@ -1,5 +1,6 @@
 addLines <- function(plot, line_data) {
-  plot <- plot + geom_line(data = line_data, aes(x = x, y = y, group = group))
+  plot <- (plot + geom_line(data = line_data, aes(x = x, y = y, group = group, colour = line.color))
+           + scale_colour_identity())
   return(plot)
 }
 
@@ -90,5 +91,13 @@ addHeaderLine <- function(plot, extend, x_is_y) {
   max <- x_limits[2]*2
   if(!extend || is.null(x_limits)) max <- Inf
   plot <- plot + annotation_custom(segmentsGrob(), xmin = min, xmax = max, ymin = 8.6, ymax = 8.6)
+  return(plot)
+}
+
+addDisorderTitle <- function(plot) {
+  x_limits <- xScaleLimits(plot)
+  max <- x_limits[2]*1.15
+  plot <- plot + annotation_custom(textGrob(label = 'Disorder', gp = gpar(cex = 0.85)),
+                                   xmin = max, xmax = max, ymin = 8.85, ymax = 8.85)
   return(plot)
 }

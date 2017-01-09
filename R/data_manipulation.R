@@ -3,7 +3,8 @@ disorderFlattenToX <- function(data) {
   maxs <- data$max
   x_positions <- c(mins, maxs)
   y_positions <- rep(data$disorder, 2)
-  return(data.frame(x = x_positions, y = y_positions, group = y_positions))
+  increased <- rep(data$increased, 2)
+  return(data.frame(x = x_positions, y = y_positions, group = y_positions, increased = increased))
 }
 
 toPercentages <- function(data) {
@@ -55,6 +56,11 @@ editShape <- function(data, shape, index) {
   return(data)
 }
 
+addLineColor <- function(data, colors) {
+  data$line.color <- colors
+  return(data)
+}
+
 addColor <-function(data, colors) {
   data$color <- colors
   return(data)
@@ -68,4 +74,18 @@ genomicRiskColorPicker <- function(data) {
   colors <- rev(colors)
   colors <- c('blue', colors[data$studies[2:nrow(data)]])
   return(colors)
+}
+
+disorderCohortColorPicker <- function(data) {
+  increased <- as.logical(data$increased)
+  increased[which(increased)] <- '#F8766D'
+  increased[which(increased == "FALSE")] <- '#00BFC4'
+  return(increased)
+}
+
+disorderCohortShapePicker <- function(data) {
+  increased <- data$increased
+  increased[which(increased)] <- '\u25BA'
+  increased[which(increased == "FALSE")] <- '\u25C4'
+  return(increased)
 }

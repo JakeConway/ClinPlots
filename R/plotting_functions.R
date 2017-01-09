@@ -60,6 +60,7 @@ generateGenomicLinePlot <- function(line_data) {
   line_data <- orderByY(line_data)
   line_data <- addShape(line_data, 15)
   line_data <- editShape(line_data, 16, 1)
+  line_data <- addLineColor(line_data, 'black')
   line_data <- addColor(line_data, genomicRiskColorPicker(line_data))
   plot <- ggplot()
   plot <- addPoints(plot, line_data, '   ', 'x', 'y','Risk (%)', TRUE)
@@ -105,7 +106,7 @@ formatDisorderData <- function(data) {
   data$disorder <- as.character(data$disorder)
   data <- toPercentages(data)
   data <- data[order(data$disorder), ]
-  data <- addShape(data, 17)
+  data <- addShape(data, disorderCohortShapePicker(data))
   data <- addColor(data, 'black')
   return(data)
 }
@@ -113,9 +114,10 @@ formatDisorderData <- function(data) {
 generateDisorderLinePlot <- function(data, line_data) {
   plot <- ggplot()
   plot <- addLines(plot, line_data)
-  plot <- addPoints(plot, data, 'Disorder', 'avg', 'disorder', 'Clinical risk (%)', FALSE)
+  plot <- addPoints(plot, data, '   ', 'avg', 'disorder', 'Clinical risk (%)', FALSE)
   plot <- addDisorderCohortRiskTheme(plot)
   plot <- addHeaderLine(plot, TRUE, FALSE)
+  plot <- addDisorderTitle(plot)
   return(plot)
 }
 
