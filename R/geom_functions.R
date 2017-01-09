@@ -98,6 +98,6 @@ addDisorderTitle <- function(plot) {
   x_limits <- xScaleLimits(plot)
   max <- x_limits[2]*1.15
   plot <- plot + annotation_custom(textGrob(label = 'Disorder', gp = gpar(cex = 0.85)),
-                                   xmin = max, xmax = max, ymin = 8.85, ymax = 8.85)
+                                   xmin = max, xmax = max, ymin = 8.75, ymax = 8.75)
   return(plot)
 }
