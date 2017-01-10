@@ -67,7 +67,7 @@ generateGenomicLinePlot <- function(line_data) {
   plot <- addLines(plot, line_data)
   plot <- addHeaderLine(plot, nrow(line_data), TRUE, TRUE)
   plot <- addGenomicRiskSummaryTheme(plot)
-  plot <- removeMargin(plot, 0.5, 0, 0.5, 0)
+  plot <- removeMargin(plot, 0.5, 0, 0.5, -0.05)
   return(list(plot = ggplot_gtable(ggplot_build(plot)),
               index = 4, updatable = FALSE))
 }

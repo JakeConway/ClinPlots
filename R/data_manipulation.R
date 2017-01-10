@@ -89,3 +89,20 @@ disorderCohortShapePicker <- function(data) {
   increased[which(increased == "FALSE")] <- '\u25C4'
   return(increased)
 }
+
+chooseLeftRightMargins <- function(index, n_rows, plot_index) {
+  left <- -0.5
+  right <- -0.5
+  if(index == 1) {
+    left <- 0
+  }
+  if(index == n_rows) {
+    left <- 0.5
+    right <- 0
+  }
+  if(index == plot_index) {
+    left <- 0
+    right <- 0
+  }
+  return(c(left, right))
+}

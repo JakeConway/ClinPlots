@@ -86,13 +86,23 @@ addText <- function(plot, data, y, title, size) {
 }
 
 addHeaderLine <- function(plot, n_rows, extend, x_is_y) {
-  x_limits <- xScaleLimits(plot)
-  min <- 0
-  max <- x_limits[2]*2
-  if(!extend || is.null(x_limits)) max <- Inf
-  y_position <- n_rows*1.075
-  plot <- plot + annotation_custom(segmentsGrob(), xmin = min, xmax = max,
-                                   ymin = y_position, ymax = y_position)
+  if(!x_is_y){
+    x_limits <- xScaleLimits(plot)
+    min_x_position <- 0
+    max_x_position <- x_limits[2]*2
+    if(!extend || is.null(x_limits)) max_x_position <- Inf
+    min_y_position <- n_rows*1.075
+    max_y_position <- min_y_position
+  } else {
+    y_limits <- yScaleLimits(plot)
+    min_y_position <- 0
+    max_y_position <- y_limits[2]*2
+    if(!extend || is.null(y_limits)) max_y_position <- Inf
+    min_x_position <- n_rows*1.075
+    max_x_position <- min_x_position
+  }
+  plot <- plot + annotation_custom(segmentsGrob(), xmin = min_x_position, xmax = max_x_position,
+                                   ymin = min_y_position, ymax = max_y_position)
   return(plot)
 }
 
