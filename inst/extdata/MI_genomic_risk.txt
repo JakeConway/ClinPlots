@@ -1,4 +1,4 @@
-gene	SNP_loc	genotype	LR	studies	samples	pt_probability
+gene	SNP_loci	genotype	LR	studies	samples	pt_probability
 NA	NA	NA	NA	NA	NA	2
 LPA	rs3798220	CT	1.86	2	17031	3.7
 THBS2	rs8089	AC	1.09	1	4868	4
