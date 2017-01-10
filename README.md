@@ -7,12 +7,17 @@ There is a need to rapidly and effectively summarize multivariate risk informati
 
 ![Figure 2](https://cloud.githubusercontent.com/assets/12614369/21381729/0a219992-c72b-11e6-8c65-8d51112e35eb.png)
 
-The data for this plot can be be loaded using:
+A sample script to generate both plots, using the data above:
 ```R
-mydata <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
-```
+require(ggplot2)
+require(scales)
+require(gridExtra)
+require(grid)
+library(ClinPlots)
 
-### Links to gists containing data
-- https://gist.github.com/JakeConway/7e27850ccfd88927b0f6edc89e5a8bcd
-- https://gist.github.com/kfodes10/f8b383573759b2257e1c9c1c414b1519
-- https://gist.github.com/etoleary/9c4ab586d4dc18015da3afbbc71b8291
+clinical_risk <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
+disorderCohortRiskPlot(clinical_risk)
+
+MI_df <- read.csv(system.file("extdata", "MI_genomic_risk.txt", package = "ClinPlots"), sep='\t')
+genomicRiskSummaryPlot(MI_df, "pt_probability") #running genomicRiskSummaryPlot(MI_df, 7) will produce same result
+```
