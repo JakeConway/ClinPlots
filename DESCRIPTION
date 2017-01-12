@@ -6,7 +6,9 @@ URL: http://github.com/JakeConway/ClinPlots
 BugReports: http://github.com/JakeConway/ClinPlots/issues
 Authors@R: c(
     person("Jake", "Conway", email = "jake_conway@hms.harvard.edu", role = c("cre", "aut")),
-    person("Evan", "O' Leary", email = "evanoleary3@gmail.com", role = "ctb"))
+    person("Evan", "O' Leary", email = "evanoleary3@gmail.com", role = "ctb"),
+    person("Kurtis", "Foden", email = "kurtis_foden@student.uml.edu", role = "ctb")
+    )
 Maintainer: Jake Conway <jake_conway@hms.harvard.edu>
 Description: An R package to create clinico-genomic charts.
 Depends: R (>= 3.0)
