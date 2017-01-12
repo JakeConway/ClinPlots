@@ -20,8 +20,8 @@ require(gridExtra)
 require(grid)
 library(ClinPlots)
 
-clinical_risk <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
-disorderCohortRiskPlot(clinical_risk)
+cr_df <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
+disorderCohortRiskPlot(cr_df)
 
 MI_df <- read.csv(system.file("extdata", "MI_genomic_risk.txt", package = "ClinPlots"), sep='\t')
 genomicRiskSummaryPlot(MI_df, "pt_probability") #running genomicRiskSummaryPlot(MI_df, 7) will produce same result
