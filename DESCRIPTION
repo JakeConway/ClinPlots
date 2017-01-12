@@ -1,9 +1,20 @@
 Package: ClinPlots
 Type: Package
-Title: What the Package Does (Title Case)
+Title: ClinPlots
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+URL: http://github.com/JakeConway/ClinPlots
+BugReports: http://github.com/JakeConway/ClinPlots/issues
+Authors@R: c(
+    person("Jake", "Conway", email = "jake_conway@hms.harvard.edu", role = c("cre", "aut")),
+    person("Evan", "O' Leary", email = "evanoleary3@gmail.com", role = "ctb"))
+Maintainer: Jake Conway <jake_conway@hms.harvard.edu>
+Description: An R package to create clinico-genomic charts.
+Depends: R (>= 3.0)
+Imports:
+    ggplot2,
+    grid,
+    gridExtra,
+    scales
+License: MIT + file LICENSE
 LazyData: TRUE
+RoxygenNote: 5.0.1
