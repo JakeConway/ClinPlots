@@ -21,7 +21,9 @@ A function to generate the disorder risk cohort plot, which summarizes the the p
              as well as the number of individuals in the disorder cohort.
 }
 \examples{
-clinical_risk <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\\t')
-disorderCohortRiskPlot(clinical_risk)
+require(ggplot2); require(grid); require(gridExtra); require(scales);
+
+cr_df <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\\t')
+disorderCohortRiskPlot(cr_df)
 }
 

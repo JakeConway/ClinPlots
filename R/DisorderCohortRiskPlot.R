@@ -11,8 +11,10 @@
 #'        contains the maximum post-test probability (numeric), the avg column contains the average post-test
 #'        probability (numeric), and increased is a column that states if the post-test probability increased (logical).
 #' @examples
-#' clinical_risk <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
-#' disorderCohortRiskPlot(clinical_risk)
+#' require(ggplot2); require(grid); require(gridExtra); require(scales);
+#'
+#' cr_df <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
+#' disorderCohortRiskPlot(cr_df)
 #' @export
 disorderCohortRiskPlot <- function(data){
   data <- formatDisorderData(data)
