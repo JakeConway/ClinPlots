@@ -10,6 +10,9 @@
 #'        cohort (integer), the min column contains the minimum post-test probability (numeric), the max columns
 #'        contains the maximum post-test probability (numeric), the avg column contains the average post-test
 #'        probability (numeric), and increased is a column that states if the post-test probability increased (logical).
+#' @examples
+#' clinical_risk <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
+#' disorderCohortRiskPlot(clinical_risk)
 #' @export
 disorderCohortRiskPlot <- function(data){
   data <- formatDisorderData(data)

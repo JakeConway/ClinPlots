@@ -20,4 +20,8 @@ A function to generate the disorder risk cohort plot, which summarizes the the p
              direction of change in probability. Each line in the plot is aligned with the name of the disorder,
              as well as the number of individuals in the disorder cohort.
 }
+\examples{
+clinical_risk <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\\t')
+disorderCohortRiskPlot(clinical_risk)
+}
 

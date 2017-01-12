@@ -17,4 +17,8 @@ used for the names of the columns in the plot.}
 A function to generate the genomic risk summary plot, which is a series of text plots accompanied
 by a line plot displaying the values from one of the columns, usually post-test probability.
 }
+\examples{
+MI_df <- read.csv(system.file("extdata", "MI_genomic_risk.txt", package = "ClinPlots"), sep='\\t')
+genomicRiskSummaryPlot(MI_df, "pt_probability") #running genomicRiskSummaryPlot(MI_df, 7) will produce same result
+}
 
