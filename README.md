@@ -7,6 +7,11 @@ There is a need to rapidly and effectively summarize multivariate risk informati
 
 ![Figure 2](https://cloud.githubusercontent.com/assets/12614369/21381729/0a219992-c72b-11e6-8c65-8d51112e35eb.png)
 
+Install the package using:
+```R
+devtools::github_install("JakeConway/ClinPlots")
+```
+
 A sample script to generate both plots, using the data above:
 ```R
 require(ggplot2)
