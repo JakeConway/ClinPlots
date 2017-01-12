@@ -10,9 +10,8 @@
 #' require(ggplot2); require(grid); require(gridExtra); require(scales);
 #'
 #' MI_df <- read.csv(system.file("extdata", "MI_genomic_risk.txt", package = "ClinPlots"), sep='\t')
-#' #running genomicRiskSummaryPlot(MI_df, 7) will produce same result
 #' genomicRiskSummaryPlot(MI_df, "pt_probability")
-#'
+#' #running genomicRiskSummaryPlot(MI_df, 7) will produce same result
 #' @export
 genomicRiskSummaryPlot <- function(data, column) {
   data <- colsToCharacter(data)
