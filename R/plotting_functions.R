@@ -69,11 +69,11 @@ generateGenomicLinePlot <- function(line_data) {
   plot <- addGenomicRiskSummaryTheme(plot)
   plot <- removeMargin(plot, 0.5, 0, 0.5, -0.05)
   return(list(plot = ggplot_gtable(ggplot_build(plot)),
-              index = 4, updatable = FALSE))
+              index = 4:5, updatable = FALSE))
 }
 
 addLineData <- function(plot_list, line_plot) {
-  index <- line_plot$index
+  index <- line_plot$index[1]
   n_plots <- length(plot_list)
   before <- index - 1
   before <- plot_list[1:before]
@@ -81,7 +81,7 @@ addLineData <- function(plot_list, line_plot) {
   after <- c(list(line_plot), after)
   updated_after <- lapply(after, function(x){
     if(x$updatable) {
-      x$index <- x$index + 1
+      x$index <- x$index + 2
       return(x)
     } else {
       return(x)
@@ -92,7 +92,7 @@ addLineData <- function(plot_list, line_plot) {
 
 drawGenomicRiskSummary <- function(data_list) {
   grid.newpage()
-  pushViewport(viewport(layout = grid.layout(1, length(data_list))))
+  pushViewport(viewport(layout = grid.layout(1, length(data_list)+1)))
   invisible(lapply(data_list, function(x) {
     vp = vplayout(1, x$index)
     pushViewport(vp)
