@@ -8,8 +8,8 @@ yScaleLimits <- function(plot) {
 
 vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
 
-toGrobs <- function(plot_list) {
-  grobs <- lapply(plot_list, function(x){
+toGrobs <- function(plot.list) {
+  grobs <- lapply(plot.list, function(x){
     x <- ggplot_gtable(ggplot_build(x))
     x$layout$clip[x$layout$name == 'panel'] <- 'off'
     return(x)
@@ -17,9 +17,9 @@ toGrobs <- function(plot_list) {
   return(grobs)
 }
 
-alignHeights <- function(plot_list, model_index) {
-  grobs <- toGrobs(plot_list)
-  heights <- grobs[[model_index]]$heights
+alignHeights <- function(plot.list, model.index) {
+  grobs <- toGrobs(plot.list)
+  heights <- grobs[[model.index]]$heights
   grobs <- lapply(grobs, function(x){
     x$heights <- heights
     return(x)
@@ -27,8 +27,8 @@ alignHeights <- function(plot_list, model_index) {
   return(grobs)
 }
 
-alignGenomicHeights <- function(grobs, model_index) {
-  heights <- grobs[[model_index]]$plot$heights
+alignGenomicHeights <- function(grobs, model.index) {
+  heights <- grobs[[model.index]]$plot$heights
   grobs <- lapply(grobs, function(x){
     x$plot$heights <- heights
     return(x)
@@ -36,50 +36,50 @@ alignGenomicHeights <- function(grobs, model_index) {
   return(grobs)
 }
 
-initGgplots <- function(data, columns, n_rows) {
+initGgplots <- function(data, columns, n.rows) {
   columns <- as.list(columns)
-  data_list <- lapply(columns, function(x){
-    data_vec <- unlist(data[x])
-    data_vec[which(is.na(data_vec))] <- " "
-    col_data <- as.data.frame(data_vec)
-    names(col_data) <- x
-    col_data$y <- nrow(col_data):1
+  data.list <- lapply(columns, function(x){
+    data.vec <- unlist(data[x])
+    data.vec[which(is.na(data.vec))] <- " "
+    col.data <- as.data.frame(data.vec)
+    names(col.data) <- x
+    col.data$y <- nrow(col.data):1
     extend <- TRUE
     index <- which(columns == x)
     if(index == ncol(data)) extend <- FALSE
-    plot <- addText(ggplot(), col_data, 'y', x, 2.5)
-    plot <- addHeaderLine(plot, n_rows, extend, FALSE)
+    plot <- addText(ggplot(), col.data, 'y', x, 2.5)
+    plot <- addHeaderLine(plot, n.rows, extend, FALSE)
     plot <- removeMargin(plot, 0.5, 0, 0.5, 0)
     return(list(plot = ggplot_gtable(ggplot_build(plot)),
            index = index, updatable = TRUE))
   })
-  return(data_list)
+  return(data.list)
 }
 
-generateGenomicLinePlot <- function(line_data) {
-  line_data <- orderByY(line_data)
-  line_data <- addShape(line_data, 15)
-  line_data <- editShape(line_data, 16, 1)
-  line_data <- addLineColor(line_data, 'black')
-  line_data <- addColor(line_data, genomicRiskColorPicker(line_data))
+generateGenomicLinePlot <- function(line.data) {
+  line.data <- orderByY(line.data)
+  line.data <- addShape(line.data, 15)
+  line.data <- editShape(line.data, 16, 1)
+  line.data <- addLineColor(line.data, 'black')
+  line.data <- addColor(line.data, genomicRiskColorPicker(line.data))
   plot <- ggplot()
-  plot <- addPoints(plot, line_data, '   ', 'x', 'y','Risk (%)', TRUE)
-  plot <- addLines(plot, line_data)
-  plot <- addHeaderLine(plot, nrow(line_data), TRUE, TRUE)
+  plot <- addPoints(plot, line.data, '   ', 'x', 'y','Risk (%)', TRUE)
+  plot <- addLines(plot, line.data)
+  plot <- addHeaderLine(plot, nrow(line.data), TRUE, TRUE)
   plot <- addGenomicRiskSummaryTheme(plot)
   plot <- removeMargin(plot, 0.5, 0, 0.5, -0.05)
   return(list(plot = ggplot_gtable(ggplot_build(plot)),
               index = 4:5, updatable = FALSE))
 }
 
-addLineData <- function(plot_list, line_plot) {
-  index <- line_plot$index[1]
-  n_plots <- length(plot_list)
+addLineData <- function(plot.list, line.plot) {
+  index <- line.plot$index[1]
+  n.plots <- length(plot.list)
   before <- index - 1
-  before <- plot_list[1:before]
-  after <- plot_list[index:n_plots]
-  after <- c(list(line_plot), after)
-  updated_after <- lapply(after, function(x){
+  before <- plot.list[1:before]
+  after <- plot.list[index:n.plots]
+  after <- c(list(line.plot), after)
+  updated.after <- lapply(after, function(x){
     if(x$updatable) {
       x$index <- x$index + 2
       return(x)
@@ -87,13 +87,13 @@ addLineData <- function(plot_list, line_plot) {
       return(x)
     }
   })
-  return(c(before, updated_after))
+  return(c(before, updated.after))
 }
 
-drawGenomicRiskSummary <- function(data_list) {
+drawGenomicRiskSummary <- function(data.list) {
   grid.newpage()
-  pushViewport(viewport(layout = grid.layout(1, length(data_list)+1)))
-  invisible(lapply(data_list, function(x) {
+  pushViewport(viewport(layout = grid.layout(1, length(data.list)+1)))
+  invisible(lapply(data.list, function(x) {
     vp = vplayout(1, x$index)
     pushViewport(vp)
     grid.draw(arrangeGrob(x$plot))
@@ -111,25 +111,25 @@ formatDisorderData <- function(data) {
   return(data)
 }
 
-generateDisorderLinePlot <- function(data, line_data) {
-  n_rows <- nrow(data)
+generateDisorderLinePlot <- function(data, line.data) {
+  n.rows <- nrow(data)
   plot <- ggplot()
-  plot <- addLines(plot, line_data)
+  plot <- addLines(plot, line.data)
   plot <- addPoints(plot, data, '   ', 'avg', 'disorder', 'Clinical risk (%)', FALSE)
   plot <- addDisorderCohortRiskTheme(plot)
-  plot <- addHeaderLine(plot, n_rows, TRUE, FALSE)
-  plot <- addDisorderTitle(plot, n_rows)
+  plot <- addHeaderLine(plot, n.rows, TRUE, FALSE)
+  plot <- addDisorderTitle(plot, n.rows)
   return(plot)
 }
 
 generateDisorderTextPlot <- function(data) {
-  text_plot <- ggplot()
-  text_plot <- addText(text_plot, data, 'disorder', 'n', 2.5)
-  text_plot <- addHeaderLine(text_plot, nrow(data), FALSE, FALSE)
-  return(text_plot)
+  text.plot <- ggplot()
+  text.plot <- addText(text.plot, data, 'disorder', 'n', 2.5)
+  text.plot <- addHeaderLine(text.plot, nrow(data), FALSE, FALSE)
+  return(text.plot)
 }
 
-drawDisorderCohortRiskPlot <- function(plot, text_plot) {
+drawDisorderCohortRiskPlot <- function(plot, text.plot) {
   grid.newpage()
   pushViewport(viewport(layout = grid.layout(1, 100)))
   vp = vplayout(1, 1:92)
@@ -138,6 +138,6 @@ drawDisorderCohortRiskPlot <- function(plot, text_plot) {
   popViewport()
   vp = vplayout(1, 93:100)
   pushViewport(vp)
-  grid.draw(arrangeGrob(text_plot))
+  grid.draw(arrangeGrob(text.plot))
   popViewport()
 }

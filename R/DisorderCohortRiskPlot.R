@@ -19,18 +19,18 @@
 #' @examples
 #' require(ggplot2); require(grid); require(gridExtra); require(scales);
 #'
-#' cr_df <- read.csv(system.file("extdata", "clinical_risk.txt", package = "ClinPlots"), sep='\t')
-#' disorderCohortRiskPlot(cr_df)
+#' cr.df <- read.csv(system.file("extdata", "clinical.risk.txt", package = "ClinPlots"), sep='\t')
+#' disorderCohortRiskPlot(cr.df)
 #' @export
 disorderCohortRiskPlot <- function(data){
   data <- formatDisorderData(data)
-  line_data <- disorderFlattenToX(data)
-  line_data <- addLineColor(line_data, disorderCohortColorPicker(line_data))
-  plot <- generateDisorderLinePlot(data, line_data)
-  text_plot <- generateDisorderTextPlot(data)
-  plot_list <- list(plot, text_plot)
-  grobs <- alignHeights(plot_list, 1)
+  line.data <- disorderFlattenToX(data)
+  line.data <- addLineColor(line.data, disorderCohortColorPicker(line.data))
+  plot <- generateDisorderLinePlot(data, line.data)
+  text.plot <- generateDisorderTextPlot(data)
+  plot.list <- list(plot, text.plot)
+  grobs <- alignHeights(plot.list, 1)
   plot <- grobs[[1]]
-  text_plot <- grobs[[2]]
-  drawDisorderCohortRiskPlot(plot, text_plot)
+  text.plot <- grobs[[2]]
+  drawDisorderCohortRiskPlot(plot, text.plot)
 }

@@ -9,18 +9,18 @@
 #' @examples
 #' require(ggplot2); require(grid); require(gridExtra); require(scales);
 #'
-#' MI_df <- read.csv(system.file("extdata", "MI_genomic_risk.txt", package = "ClinPlots"), sep='\t')
-#' genomicRiskSummaryPlot(MI_df, "pt_probability")
-#' #running genomicRiskSummaryPlot(MI_df, 7) will produce same result
+#' MI.df <- read.csv(system.file("extdata", "MI.genomic.risk.txt", package = "ClinPlots"), sep='\t')
+#' genomicRiskSummaryPlot(MI.df, "pt.probability")
+#' #running genomicRiskSummaryPlot(MI.df, 7) will produce same result
 #' @export
 genomicRiskSummaryPlot <- function(data, column) {
   data <- colsToCharacter(data)
   columns <- colnames(data)
   data <- adjustGeneLabels(data, columns)
-  line_data <- genomicFlattenToX(data, column)
-  line_plot <- generateGenomicLinePlot(line_data)
+  line.data <- genomicFlattenToX(data, column)
+  line.plot <- generateGenomicLinePlot(line.data)
   data <- initGgplots(data, columns, nrow(data))
-  data <- addLineData(data, line_plot)
+  data <- addLineData(data, line.plot)
   grobs <- alignGenomicHeights(data, 4)
   drawGenomicRiskSummary(grobs)
 }

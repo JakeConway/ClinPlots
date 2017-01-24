@@ -1,10 +1,10 @@
 disorderFlattenToX <- function(data) {
   mins <- data$min
   maxs <- data$max
-  x_positions <- c(mins, maxs)
-  y_positions <- rep(data$disorder, 2)
+  x.positions <- c(mins, maxs)
+  y.positions <- rep(data$disorder, 2)
   increased <- rep(data$increased, 2)
-  return(data.frame(x = x_positions, y = y_positions, group = y_positions, increased = increased))
+  return(data.frame(x = x.positions, y = y.positions, group = y.positions, increased = increased))
 }
 
 toPercentages <- function(data) {
@@ -33,17 +33,17 @@ adjustGeneLabels <- function(data, columns) {
 }
 
 genomicFlattenToX <- function(data, column) {
-  y_positions <- as.numeric(unname(unlist(data[column])))/100
-  x_data <- length(y_positions):1
+  y.positions <- as.numeric(unname(unlist(data[column])))/100
+  x.data <- length(y.positions):1
   group <- rep(1, nrow(data))
   studies <- data$studies
 
-  return(data.frame(x = x_data, y = y_positions, group = group, studies = studies))
+  return(data.frame(x = x.data, y = y.positions, group = group, studies = studies))
 }
 
-orderByY <- function(line_data) {
-  line_data <- line_data[order(line_data$y), ]
-  return(line_data)
+orderByY <- function(line.data) {
+  line.data <- line.data[order(line.data$y), ]
+  return(line.data)
 }
 
 addShape <- function(data, shape) {
@@ -69,8 +69,8 @@ addColor <-function(data, colors) {
 genomicRiskColorPicker <- function(data) {
   studies <- unique(data$studies)
   studies <- studies[!is.na(studies)]
-  n_studies <- length(studies)
-  colors <- grey.colors(n_studies, start = 0.15, end = 0.75, gamma = 2.2, alpha = NULL)
+  n.studies <- length(studies)
+  colors <- grey.colors(n.studies, start = 0.15, end = 0.75, gamma = 2.2, alpha = NULL)
   colors <- rev(colors)
   colors <- c('blue', colors[data$studies[2:nrow(data)]])
   return(colors)
@@ -90,17 +90,17 @@ disorderCohortShapePicker <- function(data) {
   return(increased)
 }
 
-chooseLeftRightMargins <- function(index, n_rows, plot_index) {
+chooseLeftRightMargins <- function(index, n.rows, plot.index) {
   left <- -0.5
   right <- -0.5
   if(index == 1) {
     left <- 0
   }
-  if(index == n_rows) {
+  if(index == n.rows) {
     left <- 0.5
     right <- 0
   }
-  if(index == plot_index) {
+  if(index == plot.index) {
     left <- 0
     right <- 0
   }

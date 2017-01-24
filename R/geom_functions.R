@@ -1,27 +1,27 @@
-addLines <- function(plot, line_data) {
-  plot <- (plot + geom_line(data = line_data, aes(x = x, y = y, group = group, colour = line.color))
+addLines <- function(plot, line.data) {
+  plot <- (plot + geom_line(data = line.data, aes(x = x, y = y, group = group, colour = line.color))
            + scale_colour_identity())
   return(plot)
 }
 
-addPoints <- function(plot, data, title, x, y,  x_label, x_is_y) {
+addPoints <- function(plot, data, title, x, y,  x.label, x.is.y) {
   plot <- (plot + geom_point(data = data, aes_string(x = x, y = y),
                              shape = data$shape,
                              colour = data$color,
                              size = 3)
            + scale_shape_identity()
            )
-    if(x_is_y){
+    if(x.is.y){
       plot <- (plot
                +scale_x_discrete()
                + scale_y_continuous(labels = percent, breaks = pretty_breaks(n = 3))
-               + labs(title = title, y = x_label)
+               + labs(title = title, y = x.label)
       )
     } else {
       plot <- (plot
                +scale_x_continuous(labels = percent)
                + scale_y_discrete(position = 'right')
-               + labs(title = title, x = x_label)
+               + labs(title = title, x = x.label)
       )
     }
   return(plot)
@@ -85,33 +85,33 @@ addText <- function(plot, data, y, title, size) {
   return(plot)
 }
 
-addHeaderLine <- function(plot, n_rows, extend, x_is_y) {
-  if(!x_is_y){
-    x_limits <- xScaleLimits(plot)
-    min_x_position <- 0
-    max_x_position <- x_limits[2]*2
-    if(!extend || is.null(x_limits)) max_x_position <- Inf
-    min_y_position <- n_rows*1.075
-    max_y_position <- min_y_position
+addHeaderLine <- function(plot, n.rows, extend, x.is.y) {
+  if(!x.is.y){
+    x.limits <- xScaleLimits(plot)
+    min.x.position <- 0
+    max.x.position <- x.limits[2]*2
+    if(!extend || is.null(x.limits)) max.x.position <- Inf
+    min.y.position <- n.rows*1.075
+    max.y.position <- min.y.position
   } else {
-    y_limits <- yScaleLimits(plot)
-    min_y_position <- 0
-    max_y_position <- y_limits[2]*2
-    if(!extend || is.null(y_limits)) max_y_position <- Inf
-    min_x_position <- n_rows*1.075
-    max_x_position <- min_x_position
+    y.limits <- yScaleLimits(plot)
+    min.y.position <- 0
+    max.y.position <- y.limits[2]*2
+    if(!extend || is.null(y.limits)) max.y.position <- Inf
+    min.x.position <- n.rows*1.075
+    max.x.position <- min.x.position
   }
-  plot <- plot + annotation_custom(segmentsGrob(), xmin = min_x_position, xmax = max_x_position,
-                                   ymin = min_y_position, ymax = max_y_position)
+  plot <- plot + annotation_custom(segmentsGrob(), xmin = min.x.position, xmax = max.x.position,
+                                   ymin = min.y.position, ymax = max.y.position)
   return(plot)
 }
 
-addDisorderTitle <- function(plot, n_rows) {
-  x_limits <- xScaleLimits(plot)
-  max <- x_limits[2]*1.15
-  y_position <- n_rows*1.105
+addDisorderTitle <- function(plot, n.rows) {
+  x.limits <- xScaleLimits(plot)
+  max <- x.limits[2]*1.15
+  y.position <- n.rows*1.105
   plot <- plot + annotation_custom(textGrob(label = 'Disorder', gp = gpar(cex = 0.85)),
                                    xmin = max, xmax = max,
-                                   ymin = y_position, ymax = y_position)
+                                   ymin = y.position, ymax = y.position)
   return(plot)
 }
